@@ -5,12 +5,10 @@
                 {{ __('Courses') }}
             </h2>
 
-            <div class="flex items-center gap-4">
 
-                <a href="{{route('course.create')}}" class="lms-btn bg-green-600">
-                    Add New Course
-                </a>
-            </div>
+            <a href="{{route('course.create')}}" class="lms-btn bg-green-600">
+                Add New Course
+            </a>
         </div>
     </x-slot>
 

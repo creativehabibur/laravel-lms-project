@@ -64,6 +64,10 @@ class LeadController extends Controller
      */
     public function edit($id)
     {
+        if (!permission_check('lead-management')){
+            flash()->addWarning('You are not authorized to access this page');
+            return redirect('/dashboard');
+        }
         return view('lead.edit',['id' => $id]);
     }
 

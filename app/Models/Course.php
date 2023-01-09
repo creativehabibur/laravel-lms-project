@@ -9,17 +9,6 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'user_id'
-    ];
-
-    public function curriculumns() {
-        return $this->hasMany(Curriculum::class);
-    }
-
     public function exams(){
         return $this->hasMany(Exam::class);
     }
@@ -28,7 +17,7 @@ class Course extends Model
         return $this->hasMany(EClass::class);
     }
     public function teachers(){
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsToMany(User::class,'course_teacher','course_id','teacher_id');
     }
     public function courses(){
         return $this->belongsToMany(Course::class);

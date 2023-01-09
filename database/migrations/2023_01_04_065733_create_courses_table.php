@@ -17,12 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->text('image');
             $table->float('price')->default('0');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::create('course_teacher', function (Blueprint $table) {

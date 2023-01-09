@@ -28,29 +28,41 @@ class DatabaseSeeder extends Seeder
         $permitions = ['create-admin', 'lead-management','user-management'];
 
         foreach ($permitions as $permission) {
-             Permission::create(
+            Permission::create(
                 ['name'=> $permission]
             );
         }
-         $this->createRoleAnduser('Super Admin','Super Admin','superadmin@lms.com');
-         $this->createRoleAnduser('Comunication','Comunication Team','comunication@lms.com');
-        $teacher = $this->createRoleAnduser('Teacher','Teacher','teacher@lms.com');
-         $this->createRoleAnduser('Teacher','Teacher2','teacher2@lms.com');
-         $this->createRoleAnduser('Lead','Lead','lead@lms.com');
+        $this->createRoleAnduser('Super Admin','Super Admin','superadmin@lms.com');
+        $this->createRoleAnduser('Comunication','Comunication Team','comunication@lms.com');
+        $this->createRoleAnduser('Teacher','Teacher','teacher@lms.com');
+        $this->createRoleAnduser('Teacher','Teacher2','teacher2@lms.com');
+        $this->createRoleAnduser('Teacher','Teacher3','teacher3@lms.com');
+        $this->createRoleAnduser('Teacher','Teacher4','teacher4@lms.com');
+        $this->createRoleAnduser('Teacher','Teacher5','teacher5@lms.com');
+        $this->createRoleAnduser('Lead','Lead','lead@lms.com');
 
         Lead::factory(100)->create();
 
         $course = Course::create([
-            'name' => 'Laravel',
-            'description' => 'Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.',
-            'image' => 'https://laravel.com/img/logomark.min.svg',
-            'user_id' => $teacher->id,
-            'price' => 500
+            'name' => 'Laravel Queues in Action',
+            'description' => 'Over the years, I worked on projects that heavily relied on asynchronous task execution (Vapor, Forge & Envoyer). I also worked with hundreds of Laravel community members to solve problems involving the queue system. Along the way, I contributed to enhancing the system by adding new features, fixing bugs, and improving performance.',
+            'image' => 'https://laravel-courses.com/storage/courses/4960c69f-174b-43d2-a868-d913de6678a9.png',
+            'price' => '39',
         ]);
+        $courses = Course::all();
+
+
+        foreach ($courses as $course){
+            $users = User::role('Teacher')->pluck('id')->toArray();
+            $randUsers = array_rand($users,2);
+
+            $randomItems = array_intersect_key($users, array_flip($randUsers));
+            $course->teachers()->attach($randomItems);
+        }
     }
 
     private function createRoleAnduser($type,$name,$email){
-       $role = Role::where('name',$type)->first();
+        $role = Role::where('name',$type)->first();
 
         if (!$role){
             $role = Role::create([
@@ -71,4 +83,7 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($role);
         return $user;
     }
+
+
+
 }
