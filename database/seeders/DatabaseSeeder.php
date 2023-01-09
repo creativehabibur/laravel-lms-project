@@ -34,17 +34,18 @@ class DatabaseSeeder extends Seeder
         }
          $this->createRoleAnduser('Super Admin','Super Admin','superadmin@lms.com');
          $this->createRoleAnduser('Comunication','Comunication Team','comunication@lms.com');
-         $this->createRoleAnduser('Teacher','Teacher','teacher@lms.com');
+        $teacher = $this->createRoleAnduser('Teacher','Teacher','teacher@lms.com');
          $this->createRoleAnduser('Teacher','Teacher2','teacher2@lms.com');
          $this->createRoleAnduser('Lead','Lead','lead@lms.com');
 
         Lead::factory(100)->create();
 
         $course = Course::create([
-            'name' => 'Laravel Queues in Action',
-            'description' => 'Over the years, I worked on projects that heavily relied on asynchronous task execution (Vapor, Forge & Envoyer). I also worked with hundreds of Laravel community members to solve problems involving the queue system. Along the way, I contributed to enhancing the system by adding new features, fixing bugs, and improving performance.',
-            'image' => 'https://laravel-courses.com/storage/courses/4960c69f-174b-43d2-a868-d913de6678a9.png',
-            'price' => '39',
+            'name' => 'Laravel',
+            'description' => 'Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.',
+            'image' => 'https://laravel.com/img/logomark.min.svg',
+            'user_id' => $teacher->id,
+            'price' => 500
         ]);
     }
 

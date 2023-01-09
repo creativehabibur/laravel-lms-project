@@ -1,8 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Courses') }}
-        </h2>
+        <div class="flex  justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Courses') }}
+            </h2>
+
+            <div class="flex items-center gap-4">
+
+                <a href="{{route('course.create')}}" class="lms-btn bg-green-600">
+                    Add New Course
+                </a>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
